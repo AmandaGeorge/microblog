@@ -1,0 +1,26 @@
+h1 {
+	text-align: left;
+	font-weight: bold;
+	color: #F0F8FF;
+}
+
+#addNewPost {
+	text-align: right;
+}
+
+.jumbotron {
+	background-image: url("images/thinker.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center center;
+}
+
+.post-container {
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	background-color:#DDD;
+}
+
