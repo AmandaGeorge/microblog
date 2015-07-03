@@ -36,7 +36,21 @@ $(document).ready(function() {
 		localStorage.setItem(this.key, JSON.stringify(items_json));
 	}
 
-	
+	SaveRender.prototype.renderTemplate = function(template_source, where) {
+		var items_json = JSON.parse(this.items);
+		var template = _.template($(template_source).html());
+
+		_.each(items_json, function(item) {
+			$(where).append(template(item));
+		});
+	}
+
+	Post.prototype = new SaveRender();
+	Post.prototype.constructor = Post;
+
+	var post1 = new Post("Amanda", "Does this work?");
+	post1.saveToLs(post1);
+	post1.renderTemplate("#post-template", "#feed");
 
 	// ALL BELOW IS INSPIRED BY THE TODO APP
 	// Post.all_posts = [];
