@@ -1,11 +1,12 @@
 $(document).ready(function() {
 	console.log("working js");
 
-	var $modal = $("#add-post-modal");
+	var $form = $("#add-post-form");
 	var $feed = $("#feed");
 
 	var $userName = $("#user");
 	var $thoughts = $("#thoughts");
+	var $submit = $("#submitPost");
 
 	//To compile the template
 	var _postTemplate = _.template($("#post-template").html());
@@ -20,37 +21,51 @@ $(document).ready(function() {
 		this.user = user;
 		this.thoughts = thoughts;
 
-		this.items = localStorage.getItem("posts");
-		this.key = "posts";
+		// this.items = localStorage.getItem("posts");
+		// this.key = "posts";
 	}
 
-	function SaveRender() {};
+	Post.all_posts = [];
 
-	SaveRender.prototype.saveToLs = function(item) {
-		if (this.items) {
-			items_json = JSON.parse(this.items);
-		} else {
-			items_json = [];
-		}
-		items_json.push(item);
-		localStorage.setItem(this.key, JSON.stringify(items_json));
+	// function SaveRender() {
+	// 	var myPost = new Post($userName.val(), $thoughts.val());
+	// 	myPost.saveToLs;
+	// 	myPost.renderTemplate;
+
+	// 	// $modal[0].reset();
+	// 	// $("#user").focus();
+	// }
+
+	Post.prototype.save = function() {
+		// console.log("saving to LS");
+		// if (this.items) {
+		// 	items_json = JSON.parse(this.items);
+		// } else {
+		// 	items_json = [];
+		// }
+		// items_json.push(item);
+		// localStorage.setItem(this.key, JSON.stringify(items_json));
+		Post.all_posts.push(this);
 	}
 
-	SaveRender.prototype.renderTemplate = function(template_source, where) {
-		var items_json = JSON.parse(this.items);
-		var template = _.template($(template_source).html());
+	Post.prototype.renderTemplate = function() {
+		// console.log("rendering template");
+		// var items_json = JSON.parse(this.items);
+		// var template = _.template($(template_source).html());
 
-		_.each(items_json, function(item) {
-			$(where).append(template(item));
-		});
+		// _.each(items_json, function(item) {
+		// 	$(where).append(template(item));
+		// });
+		var $post = $(_postTemplate(this));
+		$feed.append($post);
 	}
 
-	Post.prototype = new SaveRender();
-	Post.prototype.constructor = Post;
+	// Post.prototype = new SaveRender();
+	// Post.prototype.constructor = Post;
 
-	var post1 = new Post("Amanda", "Does this work?");
-	post1.saveToLs(post1);
-	post1.renderTemplate("#post-template", "#feed");
+	// var post1 = new Post("Amanda", "Does this work?");
+	// post1.saveToLs(post1);
+	// post1.renderTemplate("#post-template", "#feed");
 
 	// ALL BELOW IS INSPIRED BY THE TODO APP
 	// Post.all_posts = [];
@@ -64,17 +79,19 @@ $(document).ready(function() {
 	// 	$feed.prepend($post);
 	// }
 
-	// $modal.on("submit",
-	// 	function() {
-	// 		// event.preventDefault();
-			
-	// 		var myPost = new Post($userName.val(), $thoughts.val());
-	// 		myPost.save();
-	// 		myPost.render();
+	$form.on("submit",
+		function(event) {
+			event.preventDefault();
+			console.log("i got clicked");
+			// event.preventDefault();
+			// SaveRender();
+			var myPost = new Post($userName.val(), $thoughts.val());
+			myPost.save();
+			myPost.renderTemplate();
 		
-	// 		$form[0].reset();
-	// 		$("#item-name").focus();
-	// 	}
-	// );
+			$form[0].reset();
+			$("#item-name").focus();
+		}
+	);
 
 })
