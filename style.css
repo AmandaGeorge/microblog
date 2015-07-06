@@ -1,7 +1,10 @@
-h1 {
-	text-align: left;
-	font-weight: bold;
-	color: #F0F8FF;
+#headerDiv {
+	background-color: teal;
+	color: black;
+}
+
+body {
+	background-color: teal;
 }
 
 #addNewPost {
@@ -24,3 +27,7 @@ h1 {
 	background-color:#DDD;
 }
 
+h1 {
+	text-align: left;
+	font-weight: bold;
+}

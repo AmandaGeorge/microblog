@@ -7,6 +7,7 @@ $(document).ready(function() {
 	var $userName = $("#user");
 	var $thoughts = $("#thoughts");
 	var $submit = $("#submitPost");
+	var counter = 0;
 
 	//To compile the template
 	var _postTemplate = _.template($("#post-template").html());
@@ -91,6 +92,8 @@ $(document).ready(function() {
 		
 			$form[0].reset();
 			$("#item-name").focus();
+
+			counter += 1;
 		}
 	);
 
