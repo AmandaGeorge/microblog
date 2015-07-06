@@ -18,8 +18,9 @@ $(document).ready(function() {
 	];
 
 	//Post constructor
-	function Post(user, thoughts) {
+	function Post(user, thoughts, date) {
 		this.user = user;
+		this.date = date;
 		this.thoughts = thoughts;
 
 		// this.items = localStorage.getItem("posts");
@@ -80,20 +81,28 @@ $(document).ready(function() {
 	// 	$feed.prepend($post);
 	// }
 
+	$("#add-post-modal").on("shown.bs.modal", function() {
+	  $(this).find("input:first").focus();
+	});
+
 	$form.on("submit",
 		function(event) {
 			event.preventDefault();
 			console.log("i got clicked");
 			// event.preventDefault();
 			// SaveRender();
-			var myPost = new Post($userName.val(), $thoughts.val());
+			var utcSeconds = Date.now();
+			var date = new Date(utcSeconds);
+			var myPost = new Post($userName.val(), $thoughts.val(), date);
 			myPost.save();
 			myPost.renderTemplate();
 		
-			$form[0].reset();
-			$("#item-name").focus();
+			$("#add-post-modal").modal('hide');
+			// $form[0].reset();
+			// $("#item-name").focus();
 
 			counter += 1;
+			$("#footer").html("Total posts: " + counter);
 		}
 	);
 
